@@ -1,0 +1,22 @@
+body {
+  background: #faf8ef;
+  text-align: center;
+}
+
+.board {
+  background: #bbada0;
+  width: 456px;
+  height: 456px;
+  margin: 0 auto;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.cell {
+  background: rgba(238, 228, 218, 0.35);
+  width: 100px;
+  height: 100px;
+  float: left;
+  margin: 7px 7px;
+  border-radius: 3px;
+}
