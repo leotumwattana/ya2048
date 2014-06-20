@@ -1,6 +1,13 @@
+@font-face {
+  font-family: "Clear Sans";
+  src: url("/fonts/ClearSans-Bold.ttf");
+}
+
 body {
   background: #faf8ef;
   text-align: center;
+  font-family: "Clear Sans";
+  color: #776e65;
 }
 
 .board {
@@ -17,6 +24,16 @@ body {
   width: 100px;
   height: 100px;
   float: left;
-  margin: 7px 7px;
+  margin: 7px;
   border-radius: 3px;
+  font-size: 3em;
+
 }
+
+.cell > div {
+  margin-top: 14px;
+}
+
+.c2 { background: #e5dcd0; }
+.c4 {}
+.c8 {}
