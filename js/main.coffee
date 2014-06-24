@@ -15,6 +15,24 @@ $ ->
 
   @board = [0..3].map -> [0..3].map -> 0
 
+  getRow = (rowNumber, board) ->
+    board[rowNumber]
+
+  getColumn = (columnNumber, board) ->
+    column = []
+    for row in [0..3]
+      column.push board[row][columnNumber]
+    column
+
+  getColumnV2 = (c, b) ->
+    [b[0][c], b[1][c], b[2][c], b[3][c]]
+
+  getColumnV3 = (c, b) ->
+    col = []
+    for r, i in b
+      col[i] = r[c]
+    col
+
   # random index between 0 to (x-1)
   randomIndex = (x) ->
     Math.floor(Math.random() * x)
@@ -34,23 +52,62 @@ $ ->
     true
 
   generateTile = (board) ->
+
     unless boardIsFull(board)
-      # get random value for tile
+
       val = randomValue()
-      # get random position
       [x, y] = getRandomCellIndices()
-      # only if the cell is zero
+
       if board[x][y] == 0
         board[x][y] = val
       else
-        # how about when board is full?
         generateTile(board)
+
+  mergeCells = (cells, direction) ->
+
+    merge = (cells) ->
+      for i in [3...0]
+        for j in [i-1..0]
+          [n, m] = [cells[i], cells[j]]
+          if n == 0 then break
+          else if n == m
+            cells[i] *= 2
+            cells[j] = 0
+            break
+      cells
+
+    switch direction
+      when 'right', 'up'
+        cells = merge cells
+      when 'left', 'down'
+        cells = merge(cells.reverse()).reverse()
+
+    cells
+
+  console.log "mergeCells: " + mergeCells([2,2,2,2], 'left')
+  console.log "mergeCells: " + mergeCells([2,2,2,2], 'right')
+  console.log "mergeCells: " + mergeCells([2,2,4,2], 'left')
+  console.log "mergeCells: " + mergeCells([2,2,4,2], 'right')
+
+  collapseCells = (cells, direction) ->
+
+    cells = cells.filter (x) -> x != 0
+    padding = 4 - cells.length
+
+    for i in [1..padding]
+      switch direction
+        when 'right', 'down' then cells.unshift 0
+        when 'left', 'up' then cells.push 0
+    cells
+
+  console.log "collapseCells: " + collapseCells([0,2,0,4], 'left')
+  console.log "collapseCells: " + collapseCells([0,2,0,4], 'right')
 
   $('body').keydown (e) ->
     key = e.which
     keys = [37..40]
 
-    if $.inArray(key, keys) > -1
+    if ($.inArray(key, keys) > -1)
       e.preventDefault()
 
     switch key
