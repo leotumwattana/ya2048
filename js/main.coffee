@@ -69,25 +69,23 @@ $ ->
       for i in [3...0]
         for j in [i-1..0]
           [n, m] = [cells[i], cells[j]]
-          if n == 0 then break
-          else if n == m
+
+          if n == m
             cells[i] *= 2
             cells[j] = 0
             break
+          else if n == 0 then break
+          else break
+
       cells
 
     switch direction
-      when 'right', 'up'
+      when 'right', 'down'
         cells = merge cells
-      when 'left', 'down'
+      when 'left', 'up'
         cells = merge(cells.reverse()).reverse()
 
     cells
-
-  console.log "mergeCells: " + mergeCells([2,2,2,2], 'left')
-  console.log "mergeCells: " + mergeCells([2,2,2,2], 'right')
-  console.log "mergeCells: " + mergeCells([2,2,4,2], 'left')
-  console.log "mergeCells: " + mergeCells([2,2,4,2], 'right')
 
   collapseCells = (cells, direction) ->
 
@@ -99,6 +97,11 @@ $ ->
         when 'right', 'down' then cells.unshift 0
         when 'left', 'up' then cells.push 0
     cells
+
+  console.log "mergeCells: " + collapseCells(mergeCells([2,2,2,2], 'left'), 'left')
+  console.log "mergeCells: " + collapseCells(mergeCells([2,2,2,2], 'right'), 'right')
+  console.log "mergeCells: " + collapseCells(mergeCells([2,2,4,2], 'left'), 'left')
+  console.log "mergeCells: " + collapseCells(mergeCells([2,2,4,2], 'right'), 'right')
 
   console.log "collapseCells: " + collapseCells([0,2,0,4], 'left')
   console.log "collapseCells: " + collapseCells([0,2,0,4], 'right')
