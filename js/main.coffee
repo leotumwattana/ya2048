@@ -1,6 +1,6 @@
 $ ->
 
-  WinningTileValue = 8
+  WinningTileValue = 2048
 
   # covered
   ppArray = (a) ->
@@ -201,5 +201,3 @@ $ ->
   generateTile(@board)
   generateTile(@board)
   showBoard(@board)
-
-
